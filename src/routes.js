@@ -1,9 +1,12 @@
+const database = new Database();
+
 export const routes = [
   {
     method: "GET",
     path: "/tasks",
     handler: (req, res) => {
-      res.writeHead(200).end();
+      const tasks = database.slect("tasks");
+      res.writeHead(200).end(JSON.stringify(tasks));
     }
   },
   {
