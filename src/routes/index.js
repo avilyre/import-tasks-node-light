@@ -75,7 +75,7 @@ export const routes = [
       database.update("tasks", id, updatedTask);
       res.writeHead(204).end();
     }
-  },,
+  },
   {
     method: "DELETE",
     path: createPath("/tasks/:id"),
