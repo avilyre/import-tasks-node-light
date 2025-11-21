@@ -33,12 +33,24 @@ export class Database {
     this.#persist();
   }
 
-  select(table, id) {
+  select(table, id, search) {
     const isTableExists = Array.isArray(this.#database[table]);
+    const isSelectById = id;
+    const isSearching = Boolean(search);
 
     if (!isTableExists) return [];
 
-    if (id) return this.#database[table].find(item => item.id === id);
+    if (isSelectById) {
+      return this.#database[table].find(item => item.id === id)
+    }
+
+    if (isSearching) {
+      return this.#database[table].filter((item) => {
+        return Object.entries(search).some(([key, value]) => {
+          return item[key].toLowerCase().includes(value.toLowerCase());
+        })
+      });
+    }
 
     return this.#database[table];
   }
