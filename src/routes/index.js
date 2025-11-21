@@ -37,11 +37,45 @@ export const routes = [
   },
   {
     method: "PUT",
-    path: createPath("/tasks/:id"),
+    path: createPath("/tasks/:id/complete"),
     handler: (req, res) => {
+      const { id } = req.params;
+      const { title, description } = JSON.parse(req.body);
+
+      if (!id || !title || !description) return res.writeHead(400).end();
+
+      const task = {
+        id,
+        title,
+        description,
+        updated_at: new Date()
+      };
+
+      database.update("tasks", id, task);
       res.writeHead(204).end();
     }
   },
+  {
+    method: "PATCH",
+    path: createPath("/tasks/:id/complete"),
+    handler: (req, res) => {
+      const { id } = req.params;
+
+      const task = database.select("tasks", id);
+
+      if (task.length === 0) return res.writeHead(404).end();
+
+      const completed_at = task.completed_at ? null : new Date();
+
+      const updatedTask = {
+        ...task,
+        completed_at,
+      };
+
+      database.update("tasks", id, updatedTask);
+      res.writeHead(204).end();
+    }
+  },,
   {
     method: "DELETE",
     path: createPath("/tasks/:id"),
