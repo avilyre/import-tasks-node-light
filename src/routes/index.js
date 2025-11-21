@@ -44,7 +44,7 @@ export const routes = [
   },
   {
     method: "PUT",
-    path: createPath("/tasks/:id/complete"),
+    path: createPath("/tasks/:id"),
     handler: (req, res) => {
       const { id } = req.params;
       const { title, description } = JSON.parse(req.body);
