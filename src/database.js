@@ -15,4 +15,13 @@ export class Database {
     const isTableExists = Array.isArray(this.#database[table]);
     return isTableExists ? this.#database[table] : [];
   }
+
+  delete(table, id) {
+    const isTableExists = Array.isArray(this.#database[table]);
+
+    if (!isTableExists) return;
+    
+    const updatedDatabase = this.#database[table].filter(item => item.id !== id);
+    this.#database[table] = updatedDatabase;
+  }
 }

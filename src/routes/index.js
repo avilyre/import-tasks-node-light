@@ -17,12 +17,13 @@ export const routes = [
     method: "POST",
     path: createPath("/tasks"),
     handler: (req, res) => {
-      const { description } = JSON.parse(req.body);
+      const { title,description } = JSON.parse(req.body);
 
-      if (!description) return res.writeHead(400).end();
+      if (!description || !title) return res.writeHead(400).end();
       
       const task = {
         id: randomUUID(),
+        title,
         description,
         completed_at: null,
         created_at: new Date(),
@@ -45,6 +46,11 @@ export const routes = [
     method: "DELETE",
     path: createPath("/tasks/:id"),
     handler: (req, res) => {
+      const { id } = req.params;
+
+      if (!id) return res.writeHead(400).end();
+
+      database.delete("tasks", id);
       res.writeHead(204).end();
     }
   }
