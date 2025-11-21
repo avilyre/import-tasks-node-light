@@ -1,4 +1,4 @@
-# import-tasks-node-light
+# ⛁ import-tasks-node-light
 > Projeto simples em Node.js para gerenciamento e importação de tarefas via CSV.
 
 ### Guia de Uso — import-tasks-node-light
