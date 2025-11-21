@@ -1,4 +1,4 @@
-class Database {
+export class Database {
   #database = {};
 
   insert(table, data) {
